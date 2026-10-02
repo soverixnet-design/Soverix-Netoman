@@ -30,7 +30,7 @@ jobs:
       - name: Prepare static website
         run: |
           mkdir -p _site
-          cp index.html site.js site-data.json admin.html oman-banner.png CNAME .nojekyll _site/
+          cp index.html support.js site.js site-data.json admin.html oman-banner.png CNAME .nojekyll _site/
       - name: Upload website
         uses: actions/upload-pages-artifact@v4
         with:
