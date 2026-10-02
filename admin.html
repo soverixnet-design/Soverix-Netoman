@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Soverix Net · Admin</title>
+<style>
+:root{color-scheme:dark;--bg:#091624;--panel:#102436;--line:#294051;--text:#f2f7fa;--muted:#afc1cc;--accent:#4be2ba;--danger:#ff8b8b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 system-ui,"Noto Sans Bengali",sans-serif}
+.shell{width:min(1050px,calc(100% - 28px));margin:0 auto;padding:26px 0 70px}.top{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:20px}.top h1{font-size:25px;margin:0}.top a{color:var(--accent);text-decoration:none}
+.card{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:22px;margin:16px 0}.card h2{font-size:20px;margin:0 0 14px}.muted{color:var(--muted);font-size:14px}.notice{border-radius:10px;padding:12px 14px;margin:14px 0;display:none}.notice.show{display:block}.notice.ok{background:#123e35;color:#d7fff4}.notice.err{background:#4a2025;color:#ffe1e1}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.wide{grid-column:1/-1}
+label{display:block;color:var(--muted);font-size:14px;font-weight:600}input,textarea,select{display:block;width:100%;margin-top:6px;padding:11px 12px;border:1px solid var(--line);border-radius:9px;background:#0b1b2b;color:var(--text);font:inherit}textarea{min-height:90px;resize:vertical}
+.row{border:1px solid var(--line);border-radius:12px;padding:15px;margin:12px 0;background:#0b1d2d}.rowhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:11px}.rowhead strong{font-size:15px}.remove{background:transparent;color:var(--danger);border:1px solid #713940;border-radius:7px;padding:5px 9px;cursor:pointer}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.btn{border:0;border-radius:9px;padding:12px 17px;background:var(--accent);color:#08271f;font-weight:800;cursor:pointer;font:inherit}.btn.secondary{background:transparent;color:var(--text);border:1px solid var(--line)}.help{border-left:3px solid var(--accent);padding:9px 12px;color:var(--muted);font-size:14px;margin:12px 0}.token{font-family:ui-monospace,SFMono-Regular,monospace;letter-spacing:.03em}.status{margin-top:12px;color:var(--muted);font-size:14px;white-space:pre-wrap}
+@media(max-width:720px){.grid,.grid.three{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}.shell{width:calc(100% - 20px);padding-top:16px}}
+</style>
+</head>
+<body>
+<main class="shell">
+<div class="top"><h1>Soverix Net · সাইট অ্যাডমিন</h1><a href="./" target="_blank" rel="noopener">সাইট দেখুন ↗</a></div>
+<div id="notice" class="notice"></div>
+<section class="card">
+<h2>একবারের সংযোগ</h2>
+<p class="muted">এটি GitHub Pages-এর বিনামূল্যের সংস্করণ। সেভ করলে GitHub-এ নতুন commit হবে এবং Actions সাইট প্রকাশ করবে। Token এই ব্রাউজারে বা সার্ভারে সংরক্ষণ করা হয় না।</p>
+<div class="grid">
+<label>GitHub Fine-grained token<input id="token" class="token" type="password" autocomplete="off" placeholder="github_pat_…"></label>
+<label>Repository<input id="repo" value="soverixnet-design/Soverix-Netoman" autocomplete="off"></label>
+<label>Branch<input id="branch" value="main" autocomplete="off"></label>
+<div class="help wide">Token-এ শুধু এই repository-এর <b>Contents: Read and write</b> permission দিও। Token কাউকে পাঠাবে না এবং কাজ শেষে চাইলে GitHub থেকে revoke করে দিও।</div>
+</div>
+</section>
+<form id="editor">
+<section class="card"><h2>সাইট পরিচিতি</h2><div class="grid">
+<label>Browser title<input name="siteTitle"></label><label>Brand name<input name="brand"></label>
+<label class="wide">Meta description<textarea name="siteDescription"></textarea></label>
+<label>Navigation: প্যাকেজ<input name="navPackages"></label><label>Navigation: সেটআপ<input name="navSetup"></label><label>Navigation: FAQ<input name="navFaq"></label>
+</div></section>
+<section class="card"><h2>ব্যানার ও WhatsApp</h2><div class="grid">
+<label>Banner path বা URL<input name="bannerSrc"></label><label>Banner alt text<input name="bannerAlt"></label>
+<label class="wide">Banner WhatsApp message<textarea name="bannerMessage"></textarea></label>
+<label>WhatsApp number<input name="whatsapp" inputmode="tel"></label><label>নতুন banner file (optional)<input id="bannerFile" type="file" accept="image/*"></label>
+</div></section>
+<section class="card"><h2>Hero section</h2><div class="grid">
+<label>Eyebrow<input name="heroEyebrow"></label><label>ছোট সহায়ক লেখা<input name="heroSmall"></label>
+<label class="wide">Main title<textarea name="heroTitle"></textarea></label><label class="wide">Description<textarea name="heroDescription"></textarea></label>
+</div></section>
+<section class="card"><h2>সার্ভিস কার্ড</h2><div class="grid">
+<label>Label<input name="serviceLabel"></label><label>Button text<input name="serviceButton"></label>
+<label class="wide">Card title<textarea name="serviceTitle"></textarea></label><label class="wide">WhatsApp message<textarea name="serviceMessage"></textarea></label>
+<label class="wide">তিনটি সুবিধা — প্রতি লাইনে একটি<textarea name="serviceItems"></textarea></label>
+</div></section>
+<section class="card"><h2>প্যাকেজ</h2><label>Section eyebrow<input name="packagesEyebrow"></label><label>Section title<input name="packagesTitle"></label><label>Intro<textarea name="packagesIntro"></textarea></label><div id="packageList"></div><button class="btn secondary" type="button" id="addPackage">+ প্যাকেজ যোগ করুন</button></section>
+<section class="card"><h2>সেটআপ ধাপ</h2><label>Section eyebrow<input name="setupEyebrow"></label><label>Section title<input name="setupTitle"></label><div id="setupList"></div><button class="btn secondary" type="button" id="addSetup">+ ধাপ যোগ করুন</button></section>
+<section class="card"><h2>প্রশ্ন ও উত্তর</h2><label>Section title<input name="faqTitle"></label><div id="faqList"></div><button class="btn secondary" type="button" id="addFaq">+ প্রশ্ন যোগ করুন</button></section>
+<section class="card"><h2>শেষ যোগাযোগ অংশ</h2><div class="grid">
+<label>Title<input name="contactTitle"></label><label>Button text<input name="contactButton"></label><label class="wide">Description<textarea name="contactDescription"></textarea></label><label class="wide">WhatsApp message<textarea name="contactMessage"></textarea></label><label>Footer copyright<input name="footerCopyright"></label><label>Footer note<input name="footerNote"></label>
+</div></section>
+<div class="actions"><button class="btn" type="submit">সাইটে পরিবর্তন সেভ করুন</button><button class="btn secondary" type="button" id="reload">বর্তমান তথ্য আবার লোড</button></div>
+<div id="status" class="status"></div>
+</form>
+</main>
+<script>
+const $=s=>document.querySelector(s);const $$=s=>[...document.querySelectorAll(s)];let data=null;
+const blank={siteTitle:'',siteDescription:'',brand:'',nav:{packages:'',setup:'',faq:''},banner:{src:'oman-banner.png',alt:'',message:''},hero:{eyebrow:'',title:'',description:'',small:''},service:{label:'',title:'',items:[],button:'',message:''},strip:[],packages:{eyebrow:'',title:'',intro:'',items:[]},setup:{eyebrow:'',title:'',items:[]},faq:{title:'',items:[]},contact:{title:'',description:'',button:'',message:''},footer:{copyright:'',note:''},whatsapp:''};
+function clone(x){return JSON.parse(JSON.stringify(x))}
+function field(n,v){const e=document.querySelector('[name="'+n+'"]');if(e)e.value=v??''}
+function val(n){return document.querySelector('[name="'+n+'"]')?.value??''}
+function packageRow(p,i){return '<div class="row package-row" data-i="'+i+'"><div class="rowhead"><strong>প্যাকেজ '+(i+1)+'</strong><button class="remove" type="button" data-remove="package">মুছুন</button></div><div class="grid"><label>Tag<input data-k="tag"></label><label>Title<input data-k="title"></label><label class="wide">Description<textarea data-k="description"></textarea></label><label>Price<input data-k="price"></label><label>Button<input data-k="button"></label><label class="wide">WhatsApp message<textarea data-k="message"></textarea></label><label>Button style<select data-k="style"><option value="primary">সবুজ</option><option value="secondary">আউটলাইন</option></select></label></div></div>'}
+function setupRow(s,i){return '<div class="row setup-row" data-i="'+i+'"><div class="rowhead"><strong>ধাপ '+(i+1)+'</strong><button class="remove" type="button" data-remove="setup">মুছুন</button></div><div class="grid"><label>Number<input data-k="number"></label><label>Title<input data-k="title"></label><label class="wide">Description<textarea data-k="description"></textarea></label></div></div>'}
+function faqRow(f,i){return '<div class="row faq-row" data-i="'+i+'"><div class="rowhead"><strong>প্রশ্ন '+(i+1)+'</strong><button class="remove" type="button" data-remove="faq">মুছুন</button></div><label>Question<input data-k="question"></label><label>Answer<textarea data-k="answer"></textarea></label></div>'}
+function renderRows(){const p=data.packages.items||[];$('#packageList').innerHTML=p.map(packageRow).join('');p.forEach((x,i)=>fillRow('.package-row',i,x));const s=data.setup.items||[];$('#setupList').innerHTML=s.map(setupRow).join('');s.forEach((x,i)=>fillRow('.setup-row',i,x));const f=data.faq.items||[];$('#faqList').innerHTML=f.map(faqRow).join('');f.forEach((x,i)=>fillRow('.faq-row',i,x))}
+function fillRow(sel,i,x){const row=$$(sel)[i];if(!row)return;Object.entries(x).forEach(([k,v])=>{const e=row.querySelector('[data-k="'+k+'"]');if(e)e.value=v??''})}
+function renderForm(){field('siteTitle',data.siteTitle);field('siteDescription',data.siteDescription);field('brand',data.brand);field('navPackages',data.nav.packages);field('navSetup',data.nav.setup);field('navFaq',data.nav.faq);field('bannerSrc',data.banner.src);field('bannerAlt',data.banner.alt);field('bannerMessage',data.banner.message);field('whatsapp',data.whatsapp);field('heroEyebrow',data.hero.eyebrow);field('heroTitle',data.hero.title);field('heroDescription',data.hero.description);field('heroSmall',data.hero.small);field('serviceLabel',data.service.label);field('serviceTitle',data.service.title);field('serviceItems',(data.service.items||[]).join('\n'));field('serviceButton',data.service.button);field('serviceMessage',data.service.message);field('packagesEyebrow',data.packages.eyebrow);field('packagesTitle',data.packages.title);field('packagesIntro',data.packages.intro);field('setupEyebrow',data.setup.eyebrow);field('setupTitle',data.setup.title);field('faqTitle',data.faq.title);field('contactTitle',data.contact.title);field('contactDescription',data.contact.description);field('contactButton',data.contact.button);field('contactMessage',data.contact.message);field('footerCopyright',data.footer.copyright);field('footerNote',data.footer.note);renderRows()}
+function rows(sel){return $$(sel).map(row=>{const o={};row.querySelectorAll('[data-k]').forEach(e=>o[e.dataset.k]=e.value);return o})}
+function readForm(){data.siteTitle=val('siteTitle');data.siteDescription=val('siteDescription');data.brand=val('brand');data.nav={packages:val('navPackages'),setup:val('navSetup'),faq:val('navFaq')};data.banner={src:val('bannerSrc'),alt:val('bannerAlt'),message:val('bannerMessage')};data.whatsapp=val('whatsapp');data.hero={eyebrow:val('heroEyebrow'),title:val('heroTitle'),description:val('heroDescription'),small:val('heroSmall')};data.service={label:val('serviceLabel'),title:val('serviceTitle'),items:val('serviceItems').split(/\n+/).map(x=>x.trim()).filter(Boolean),button:val('serviceButton'),message:val('serviceMessage')};data.packages={eyebrow:val('packagesEyebrow'),title:val('packagesTitle'),intro:val('packagesIntro'),items:rows('.package-row')};data.setup={eyebrow:val('setupEyebrow'),title:val('setupTitle'),items:rows('.setup-row')};data.faq={title:val('faqTitle'),items:rows('.faq-row')};data.contact={title:val('contactTitle'),description:val('contactDescription'),button:val('contactButton'),message:val('contactMessage')};data.footer={copyright:val('footerCopyright'),note:val('footerNote')};return data}
+function notice(msg,kind='ok'){const n=$('#notice');n.textContent=msg;n.className='notice show '+kind;window.scrollTo({top:0,behavior:'smooth'})}
+function utf8b64(text){const bytes=new TextEncoder().encode(text);let bin='';for(const b of bytes)bin+=String.fromCharCode(b);return btoa(bin)}
+function bytesB64(bytes){let bin='';const chunk=0x8000;for(let i=0;i<bytes.length;i+=chunk)bin+=String.fromCharCode(...bytes.subarray(i,i+chunk));return btoa(bin)}
+function api(){const token=$('#token').value.trim();const repo=$('#repo').value.trim();const branch=$('#branch').value.trim();if(!token)throw new Error('প্রথমে GitHub token বসাও।');if(!repo||!branch)throw new Error('Repository ও branch পূরণ করো।');return {token,repo,branch}}
+async function gh(path,options={}){const c=api();const r=await fetch('https://api.github.com/repos/'+c.repo+'/contents/'+path,{...options,headers:{Accept:'application/vnd.github+json','Authorization':'Bearer '+c.token,'X-GitHub-Api-Version':'2022-11-28',...(options.headers||{})}});const j=await r.json();if(!r.ok)throw new Error(j.message||'GitHub API error');return j}
+async function put(path,b64,message){const c=api();let current=null;try{current=await gh(path+'?ref='+encodeURIComponent(c.branch))}catch(e){if(!/Not Found/i.test(e.message))throw e}const body={message,content:b64,branch:c.branch};if(current?.sha)body.sha=current.sha;return gh(path,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})}
+async function load(){const r=await fetch('site-data.json?cache='+Date.now());if(!r.ok)throw new Error('site-data.json লোড হয়নি');data=Object.assign(clone(blank),await r.json());renderForm();$('#status').textContent='বর্তমান তথ্য লোড হয়েছে।'}
+$('#editor').addEventListener('submit',async e=>{e.preventDefault();try{readForm();$('#status').textContent='সেভ হচ্ছে…';await put('site-data.json',utf8b64(JSON.stringify(data,null,2)+'\n'),'Update site content from admin panel');const file=$('#bannerFile').files[0];if(file){await put('oman-banner.png',bytesB64(new Uint8Array(await file.arrayBuffer())),'Update Oman banner from admin panel')}notice('সফল হয়েছে। GitHub Actions কয়েক মিনিটের মধ্যে সাইট আপডেট করবে।');$('#status').textContent='সেভ সম্পন্ন।';$('#bannerFile').value=''}catch(e){notice(e.message,'err');$('#status').textContent=''}});
+$('#reload').onclick=()=>load().catch(e=>notice(e.message,'err'));
+$('#addPackage').onclick=()=>{readForm();data.packages.items.push({tag:'',title:'',description:'',price:'',button:'',message:'',style:'primary'});renderForm()};
+$('#addSetup').onclick=()=>{readForm();data.setup.items.push({number:String((data.setup.items.length+1)).padStart(2,'0'),title:'',description:''});renderForm()};
+$('#addFaq').onclick=()=>{readForm();data.faq.items.push({question:'',answer:''});renderForm()};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-remove]');if(!b)return;readForm();const k=b.dataset.remove;if(k==='package')data.packages.items.splice(Number(b.closest('.row').dataset.i),1);if(k==='setup')data.setup.items.splice(Number(b.closest('.row').dataset.i),1);if(k==='faq')data.faq.items.splice(Number(b.closest('.row').dataset.i),1);renderForm()});
+load().catch(e=>notice(e.message,'err'));
+</script>
+</body>
+</html>
